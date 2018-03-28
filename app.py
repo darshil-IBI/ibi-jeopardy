@@ -138,8 +138,10 @@ def suggestCategory(partialVal, data):
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    global contents = open("JEOPARDY_QUESTIONS.json")
-    global jepData = json.load(contents)
+    global contents
+    contents = open("JEOPARDY_QUESTIONS.json")
+    global jepData
+    jepData = json.load(contents)
 
     print(jepData)
 
