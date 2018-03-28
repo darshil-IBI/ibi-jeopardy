@@ -68,7 +68,7 @@ def makeWebhookResult(data):
     if (data is None):
         return {}
 
-	qround = data['round']
+    qround = data['round']
 
     speech = "Category: " + data['category'] + " Round: " + qround + (qround != 'Final Jeopardy!' if (" Value: " + data['value']) else '') + "\nQuestion: " + data['question']
 
