@@ -135,14 +135,11 @@ def suggestCategory(partialVal, data):
 
     return random.sample(set(suggested), 5)
 
-contents = ""
-jepData = ""
-	
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    contents = open("JEOPARDY_QUESTIONS.json")
-    jepData = json.load(contents)
+    global contents = open("JEOPARDY_QUESTIONS.json")
+    global jepData = json.load(contents)
 
     print(jepData)
 
