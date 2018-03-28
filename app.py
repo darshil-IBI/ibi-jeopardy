@@ -70,18 +70,22 @@ def makeQuery(req):
 
 
 def makeWebhookResult(data):
+    print("makeWebhookResult0")
     if (data is None):
         return {
             "welcomeText": "Welcome to Jeopardy!"
 	}
 
+    print("makeWebhookResult1")
     qround = data['round']
 
+    print("makeWebhookResult2")
     speech = "Category: " + data['category'] + " Round: " + qround + (qround != 'Final Jeopardy!' if (" Value: " + data['value']) else '') + "\nQuestion: " + data['question']
 
     print("Response:")
     print(speech)
 
+    print("makeWebhookResult3")
     return {
         "speech": speech,
         "displayText": speech,
