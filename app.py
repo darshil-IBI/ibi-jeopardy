@@ -43,7 +43,6 @@ def webhook():
 
 
 def processRequest(req):
-    contents = open("JEOPARDY_QUESTIONS.json")
     jepData = json.load(contents)
     question_query = makeQuery(req)
     
@@ -140,10 +139,13 @@ def suggestCategory(partialVal, data):
         suggested.append(question['category'])   
 
     return random.sample(set(suggested), 5)
-	
+
+contents = ""
 	
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
+
+    contents = open("JEOPARDY_QUESTIONS.json")
 
     print("Starting app on port %d" % port)
 
