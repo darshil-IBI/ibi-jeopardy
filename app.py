@@ -38,6 +38,8 @@ def processRequest(req):
     print("processRequest0")
     question_query = makeQuery(req)
     
+    print(jepData)
+
     print("processRequest: " + jepData)
 
     jepData = selectQuestion(question_query, jepData)
