@@ -16,6 +16,8 @@ from flask import make_response
 
 # Flask app should start in global layout
 app = Flask(__name__)
+contents = ""
+jepData = {}
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -138,9 +140,7 @@ def suggestCategory(partialVal, data):
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    global contents
     contents = open("JEOPARDY_QUESTIONS.json")
-    global jepData
     jepData = json.load(contents)
 
     print(jepData)
