@@ -66,7 +66,9 @@ def makeQuery(req):
 
 def makeWebhookResult(data):
     if (data is None):
-        return {}
+        return {
+            "welcomeText": "Welcome to Jeopardy!"
+	}
 
     qround = data['round']
 
