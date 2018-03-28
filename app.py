@@ -35,8 +35,11 @@ def webhook():
 
 
 def processRequest(req):
+    print("processRequest0")
     question_query = makeQuery(req)
     
+    print("processRequest: " + jepData)
+
     jepData = selectQuestion(question_query, jepData)
 
     res = makeWebhookResult(jepData)
