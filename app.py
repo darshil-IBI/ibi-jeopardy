@@ -34,9 +34,6 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "yahooWeatherForecast":
-        return {}
-    
     contents = open("JEOPARDY_QUESTIONS.json")
     jepData = json.load(contents)
     question_query = makeQuery(req)
