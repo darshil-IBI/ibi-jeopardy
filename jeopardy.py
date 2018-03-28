@@ -48,7 +48,7 @@ def suggestCategory(partialVal, data):
 
     return random.sample(set(suggested), 5)
 
-with open('jeopardy_questions1.json') as json_data:
+with open('jeopardy_questions.json') as json_data:
     data = json.load(json_data)
     print(selectQuestion({'show_number': "4999"}, data))
     #print(suggestCategory('', data))
