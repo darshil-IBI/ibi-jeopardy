@@ -16,7 +16,6 @@ from flask import make_response
 
 # Flask app should start in global layout
 app = Flask(__name__)
-contents = ""
 jepData = {}
 
 @app.route('/webhook', methods=['POST'])
@@ -37,9 +36,11 @@ def webhook():
 
 
 def processRequest(req):
+    global jepData
+
     print("processRequest0")
     question_query = makeQuery(req)
-    
+
     print(jepData)
 
     print("processRequest: " + jepData)
