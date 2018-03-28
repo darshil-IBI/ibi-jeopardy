@@ -61,13 +61,13 @@ def makeQuery(req):
     value = parameters.get("value")
     qround = parameters.get("round")
 			
-    if category is not None:
+    if category is not None and category is not "":
         jsonFilter['category'] = category
         
-    if value is not None:
-        jsonFilter['value'] = value
+    if value is not None and value is not "":
+        jsonFilter['value'] = { "value": value, "range": "exact" }
         
-    if qround is not None:
+    if qround is not None and qround is not "":
         jsonFilter['round'] = qround
 
     return jsonFilter
