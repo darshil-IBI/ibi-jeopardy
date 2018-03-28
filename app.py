@@ -80,7 +80,7 @@ def makeWebhookResult(data):
     qround = data['round']
 
     print("makeWebhookResult2")
-    speech = "Category: " + data['category'] + " Round: " + qround + (qround != 'Final Jeopardy!' if (" Value: " + data['value']) else '') + "\nQuestion: " + data['question']
+    speech = "Category: " + data['category'] + " Round: " + qround + (if qround != 'Final Jeopardy!' (" Value: " + data['value']) else '') + "\nQuestion: " + data['question']
 
     print("Response:")
     print(speech)
