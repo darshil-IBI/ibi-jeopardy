@@ -17,40 +17,95 @@ from flask import make_response
 # Flask app should start in global layout
 app = Flask(__name__)
 jepData = {}
+currentQuestion = {}
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    print("Hello World!")
+    print('in webhook')
     req = request.get_json(silent=True, force=True)
 
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
+    speech = ""
 
+    if(req.get("playJeopardy")):
+        speech = processHelloRequest(req)
+    elif(req.get('suggestCategories')):
+        speech = processSuggestionRequest(req)
+    elif(req.get('answer')):
+        speech = processAnswerRequest(req)
+    else:
+        speech = processQuestionRequest(req)
+    
+    res = makeWebhookResult(speech)
     res = json.dumps(res, indent=4)
-    # print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
 
+def makeWebhookResult(speech):
+    print("in makeWebHookResult")
+    print(speech)
 
-def processRequest(req):
+    if (speech == ''):
+        return {
+            "speech": "Hi. I'm the Jeopardy bot. Want to play?"
+	    }
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-weather-webhook-sample"
+    }
+
+def processQuestionRequest(req):
+    print('processQuestionRequest')
     global jepData
+    global currentQuestion
 
-    print("processRequest0")
     question_query = makeQuery(req)
+    currentQuestion = selectQuestion(question_query, jepData)
 
-    print(jepData)
+    print (currentQuestion)
+    if(currentQuestion):
+        return "Category: " + currentQuestion['category'] + " Round: " + currentQuestion['round'] + (" Value: " + currentQuestion['value'] if (currentQuestion['round'] != 'Final Jeopardy!') else '') + "\nQuestion: " + currentQuestion['question']
+    
+    return "Couldn't find anything with those requirements."
 
-    selectedQuestion = selectQuestion(question_query, jepData)
+def processHelloRequest(req):
+    print ('in processHelloRequest')
+    global currentQuestion
+    currentQuestion = {}
 
-    print (selectedQuestion)
-    res = makeWebhookResult(selectedQuestion)
-    return res
+    return "Ready when you are!"
 
+
+def processSuggestionRequest(req):
+    print('in processSuggestionRequest')
+    global jepData
+    suggested = []
+
+    for question in jepData:
+        suggested.append(question['category'])   
+
+    return " ".join(random.sample(set(suggested), 5))
+
+def processAnswerRequest(req):
+    print('in processAnswerRequest')
+    global currentQuestion
+
+    answer = req.get("answer")
+
+    if(currentQuestion is None):
+        return "The is no question to answer!"
+
+    return "You are Correct!" if (answer.upper() in currentQuestion['answer'].upper()) else "Incorrect answer!"
 
 def makeQuery(req):
+    print('in makeQuery')
     jsonFilter = {}
     result = req.get("result")
     parameters = result.get("parameters")
@@ -65,36 +120,13 @@ def makeQuery(req):
     if qround is not None and qround is not "":
         jsonFilter['round'] = qround
 
-    print(json.dumps(jsonFilter, indent=4))
     return jsonFilter
 
 
-def makeWebhookResult(data):
-    print("makeWebhookResult0")
-    if (data is None):
-        return {
-            "welcomeText": "Welcome to Jeopardy!"
-	}
 
-    print("makeWebhookResult1")
-    qround = data['round']
-
-    print("makeWebhookResult2")
-    speech = "Category: " + data['category'] + " Round: " + qround + (" Value: " + data['value'] if (qround != 'Final Jeopardy!') else '') + "\nQuestion: " + data['question']
-
-    print("Response:")
-    print(speech)
-
-    print("makeWebhookResult3")
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
-    }
 
 def selectQuestion(jsonFilter, data):
+    print('in selectQuestion')
     if('category' in jsonFilter):
         print("in category")
         data = [x for x in data if jsonFilter['category'].upper() in x['category'].upper()]
@@ -129,17 +161,6 @@ def selectQuestion(jsonFilter, data):
 
     return None
 
-def suggestCategory(partialVal, data):
-    print('in suggestCategory')
-    if(partialVal != ''):
-        data = [x for x in data if partialVal.upper() in x['category'].upper()]
-    
-    suggested = []
-
-    for question in data:
-        suggested.append(question['category'])   
-
-    return random.sample(set(suggested), 5)
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
@@ -147,8 +168,7 @@ if __name__ == '__main__':
     contents = open("JEOPARDY_QUESTIONS.json")
     jepData = json.load(contents)
 
-    print(jepData)
-
+    print('Jeopardy data loaded. Ready to rock!')
     print("Starting app on port %d" % port)
 
     app.run(debug=False, port=port, host='0.0.0.0')
