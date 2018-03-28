@@ -47,22 +47,34 @@ def processRequest(req):
 
 
 def makeQuery(req):
+    print("makeQuery0")
     jsonFilter = {}
     result = req.get("result")
+
+    print("makeQuery1")
     parameters = result.get("parameters")
+
+    print("makeQuery2")
     category = parameters.get("category")
+
+    print("makeQuery3")
     value = parameters.get("value")
+
+    print("makeQuery4")
     qround = parameters.get("round")
-			
+
+    
+    print("makeQuery5")
     if category is not None and category is not "":
         jsonFilter['category'] = category
-        
+    print("makeQuery6")
     if value is not None and value is not "":
         jsonFilter['value'] = { "value": value, "range": "exact" }
-        
+    print("makeQuery7")
     if qround is not None and qround is not "":
         jsonFilter['round'] = qround
 
+    print("makeQuery8")
     return jsonFilter
 
 
