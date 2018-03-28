@@ -43,11 +43,9 @@ def processRequest(req):
 
     print(jepData)
 
-    print("processRequest: " + jepData)
+    selectedQuestion = selectQuestion(question_query, jepData)
 
-    jepData = selectQuestion(question_query, jepData)
-
-    res = makeWebhookResult(jepData)
+    res = makeWebhookResult(selectedQuestion)
     return res
 
 
