@@ -168,7 +168,7 @@ def selectQuestion(jsonFilter, data):
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
-    contents = open("JEOPARDY_QUESTIONS_SMALL.json")
+    contents = open("JEOPARDY_QUESTIONS_SMALL1.json")
     jepData = json.load(contents)
 
     print('Jeopardy data loaded. Ready to rock!')
