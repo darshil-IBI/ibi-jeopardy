@@ -101,15 +101,12 @@ def processAnswerRequest(parameters):
     global currentQuestion
 
     answer = parameters.get("answer")
-    print("here0")
     if(answer.endswith("?")):
         answer = answer[:-1]
-    print("here1")
     if(currentQuestion is None):
         return "The is no question to answer!"
     #elif(answer.upper() in currentQuestion['answer'].upper()):
     #    currentQuestion = {}
-    print("here2")
     return "You are Correct!" if (answer.upper() in currentQuestion['answer'].upper()) else "Incorrect answer!"
 
 def makeQuery(parameters):
@@ -118,7 +115,7 @@ def makeQuery(parameters):
     category = parameters.get("category")
     value = parameters.get("value")
     qround = parameters.get("round")
-    airdate = parameters.get("airdate")
+    air_date = parameters.get("air_date")
 
     print("Category:" + category)
     print("Value:" + value)
@@ -131,8 +128,8 @@ def makeQuery(parameters):
         jsonFilter['value'] = { "value": value, "range": "exact" }
     if (qround is not None and qround != ""):
         jsonFilter['round'] = qround
-    if (airdate is not None and airdate != ""):
-        jsonFilter['air_date'] = qround
+    if (air_date is not None and air_date != ""):
+        jsonFilter['air_date'] = air_date
     print("jsonfilter")
     print(jsonFilter)
     return jsonFilter
