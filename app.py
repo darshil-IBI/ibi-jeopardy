@@ -27,16 +27,19 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
+    result = req.get("result")
+    parameters = result.get("parameters")	
+	
     speech = ""
 
-    if(req.get("playJeopardy")):
-        speech = processHelloRequest(req)
-    elif(req.get('suggestCategories')):
-        speech = processSuggestionRequest(req)
-    elif(req.get('answer')):
-        speech = processAnswerRequest(req)
+    if(parameters.get("playJeopardy")):
+        speech = processHelloRequest(parameters)
+    elif(parameters.get('suggestCategories')):
+        speech = processSuggestionRequest(parameters)
+    elif(parameters.get('answer')):
+        speech = processAnswerRequest(parameters)
     else:
-        speech = processQuestionRequest(req)
+        speech = processQuestionRequest(parameters)
     
     res = makeWebhookResult(speech)
     res = json.dumps(res, indent=4)
