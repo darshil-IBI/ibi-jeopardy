@@ -116,13 +116,16 @@ def makeQuery(parameters):
 
     print("Category:" + category)
     print("Value:" + value)
-    print("Round:" + qround)
+    print("Round:" + qround)    
 
-    if category is not None and category is not "":
+    if category is not None and category != "":
+	print("in cat")
         jsonFilter['category'] = category
-    if value is not None and value is not "":
+    if value is not None and value != "":
+	print("in value")
         jsonFilter['value'] = { "value": ("$" + value), "range": "exact" }
-    if qround is not None and qround is not "":
+    if qround is not None and qround != "":
+	print("in qround")
         jsonFilter['round'] = qround
     print("jsonfilter")
     print(jsonFilter)
