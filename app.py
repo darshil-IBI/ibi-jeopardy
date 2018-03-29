@@ -107,7 +107,7 @@ def processAnswerRequest(parameters):
 
     if(currentQuestion is None):
         return "The is no question to answer!"
-    elif(answer.upper() in currentQuestion['answer'].upper())
+    elif(answer.upper() in currentQuestion['answer'].upper()):
         currentQuestion = {}
 
     return "You are Correct!" if (answer.upper() in currentQuestion['answer'].upper()) else "Incorrect answer!"
