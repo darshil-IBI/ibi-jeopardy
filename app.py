@@ -101,9 +101,14 @@ def processAnswerRequest(parameters):
     global currentQuestion
 
     answer = parameters.get("answer")
+    
+    if(answer.endswith("?")):
+	answer = answer[:-1]
 
     if(currentQuestion is None):
         return "The is no question to answer!"
+    elif(answer.upper() in currentQuestion['answer'].upper())
+        currentQuestion = {}
 
     return "You are Correct!" if (answer.upper() in currentQuestion['answer'].upper()) else "Incorrect answer!"
 
