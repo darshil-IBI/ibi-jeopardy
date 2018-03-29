@@ -74,7 +74,7 @@ def processQuestionRequest(parameters):
 
     print (currentQuestion)
     if(currentQuestion is not None):
-        return "Category: " + currentQuestion['category'] + " Round: " + currentQuestion['round'] + (" Value: " + currentQuestion['value'] if (currentQuestion['round'] != 'Final Jeopardy!') else '') + "\nQuestion: " + currentQuestion['question']
+        return "Category: " + currentQuestion['category'] + " Round: " + currentQuestion['round'] + (" Value: " + currentQuestion['value'] if (currentQuestion['round'] != 'Final Jeopardy!') else '') + "\nAnswer: " + currentQuestion['question']
     
     return "Couldn't find anything with those requirements."
 
