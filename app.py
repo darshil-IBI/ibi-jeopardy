@@ -124,7 +124,8 @@ def makeQuery(parameters):
         jsonFilter['value'] = { "value": ("$" + value), "range": "exact" }
     if qround is not None and qround is not "":
         jsonFilter['round'] = qround
-
+    print("jsonfilter")
+    print(jsonFilter)
     return jsonFilter
 
 
