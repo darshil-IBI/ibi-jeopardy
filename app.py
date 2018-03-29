@@ -120,7 +120,7 @@ def makeQuery(parameters):
     if(category is not None and category != ""):
         jsonFilter['category'] = category
     if (value is not None and value != ""):
-	if(not value.startswith("$")):
+        if(not value.startswith("$")):
             value = "$" + value
         jsonFilter['value'] = { "value": value, "range": "exact" }
     if (qround is not None and qround != ""):
