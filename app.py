@@ -114,6 +114,10 @@ def makeQuery(parameters):
     value = parameters.get("value")
     qround = parameters.get("round")
 
+    print("Category:" + category)
+    print("Value:" + value)
+    print("Round:" + qround)
+
     if category is not None and category is not "":
         jsonFilter['category'] = category
     if value is not None and value is not "":
