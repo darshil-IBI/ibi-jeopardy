@@ -155,11 +155,7 @@ def selectQuestion(jsonFilter, data):
             data = [x for x in data if x['value'] == jsonFilter['value']['value']]
     if('round' in jsonFilter):
         print("in round")
-        data = [x for x in data if x['round'] == jsonFilter['round']]
-    
-    if('question' in jsonFilter):
-        print("in question")
-        data = [x for x in data if jsonFilter['question'].upper() in x['question'].upper()]        
+        data = [x for x in data if x['round'] == jsonFilter['round']]      
     
     if('air_date' in jsonFilter):
         print("in question")
