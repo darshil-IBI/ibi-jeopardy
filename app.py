@@ -94,7 +94,7 @@ def processSuggestionRequest(parameters):
     for question in jepData:
         suggested.append(question['category'])   
 
-    return " ".join(random.sample(set(suggested), 5))
+    return " ,".join(random.sample(set(suggested), 5))
 
 def processAnswerRequest(parameters):
     print('in processAnswerRequest')
