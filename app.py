@@ -101,15 +101,15 @@ def processAnswerRequest(parameters):
     global currentQuestion
 
     answer = parameters.get("answer")
-    
+    print("here0")
     if(answer.endswith("?")):
         answer = answer[:-1]
-
+    print("here1")
     if(currentQuestion is None):
         return "The is no question to answer!"
-    elif(answer.upper() in currentQuestion['answer'].upper()):
-        currentQuestion = {}
-
+    #elif(answer.upper() in currentQuestion['answer'].upper()):
+    #    currentQuestion = {}
+    print("here2")
     return "You are Correct!" if (answer.upper() in currentQuestion['answer'].upper()) else "Incorrect answer!"
 
 def makeQuery(parameters):
