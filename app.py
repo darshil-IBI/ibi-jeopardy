@@ -118,6 +118,7 @@ def makeQuery(parameters):
     category = parameters.get("category")
     value = parameters.get("value")
     qround = parameters.get("round")
+    airdate = parameters.get("airdate")
 
     print("Category:" + category)
     print("Value:" + value)
@@ -130,6 +131,8 @@ def makeQuery(parameters):
         jsonFilter['value'] = { "value": value, "range": "exact" }
     if (qround is not None and qround != ""):
         jsonFilter['round'] = qround
+    if (airdate is not None and airdate != ""):
+        jsonFilter['air_date'] = qround
     print("jsonfilter")
     print(jsonFilter)
     return jsonFilter
