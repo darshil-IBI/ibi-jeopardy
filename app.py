@@ -166,7 +166,7 @@ def selectQuestion(jsonFilter, data):
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5000))
+    port = int(os.getenv('PORT', 5000)) 
 
     contents = open("JEOPARDY_QUESTIONS1_SMALL.json")
     jepData = json.load(contents)
