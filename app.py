@@ -64,12 +64,12 @@ def makeWebhookResult(speech):
         "source": "apiai-weather-webhook-sample"
     }
 
-def processQuestionRequest(req):
+def processQuestionRequest(parameters):
     print('processQuestionRequest')
     global jepData
     global currentQuestion
 
-    question_query = makeQuery(req)
+    question_query = makeQuery(parameters)
     currentQuestion = selectQuestion(question_query, jepData)
 
     print (currentQuestion)
@@ -78,7 +78,7 @@ def processQuestionRequest(req):
     
     return "Couldn't find anything with those requirements."
 
-def processHelloRequest(req):
+def processHelloRequest(parameters):
     print ('in processHelloRequest')
     global currentQuestion
     currentQuestion = {}
@@ -86,7 +86,7 @@ def processHelloRequest(req):
     return "Ready when you are!"
 
 
-def processSuggestionRequest(req):
+def processSuggestionRequest(parameters):
     print('in processSuggestionRequest')
     global jepData
     suggested = []
@@ -96,22 +96,20 @@ def processSuggestionRequest(req):
 
     return " ".join(random.sample(set(suggested), 5))
 
-def processAnswerRequest(req):
+def processAnswerRequest(parameters):
     print('in processAnswerRequest')
     global currentQuestion
 
-    answer = req.get("answer")
+    answer = parameters.get("answer")
 
     if(currentQuestion is None):
         return "The is no question to answer!"
 
     return "You are Correct!" if (answer.upper() in currentQuestion['answer'].upper()) else "Incorrect answer!"
 
-def makeQuery(req):
+def makeQuery(parameters):
     print('in makeQuery')
     jsonFilter = {}
-    result = req.get("result")
-    parameters = result.get("parameters")
     category = parameters.get("category")
     value = parameters.get("value")
     qround = parameters.get("round")
