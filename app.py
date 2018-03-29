@@ -103,7 +103,7 @@ def processAnswerRequest(parameters):
     answer = parameters.get("answer")
     
     if(answer.endswith("?")):
-	answer = answer[:-1]
+        answer = answer[:-1]
 
     if(currentQuestion is None):
         return "The is no question to answer!"
