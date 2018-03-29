@@ -94,7 +94,7 @@ def processSuggestionRequest(parameters):
     for question in jepData:
         suggested.append(question['category'])   
 
-    return " ,".join(random.sample(set(suggested), 5))
+    return ", ".join(random.sample(set(suggested), 5))
 
 def processAnswerRequest(parameters):
     print('in processAnswerRequest')
@@ -172,7 +172,7 @@ def selectQuestion(jsonFilter, data):
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000)) 
 
-    contents = open("JEOPARDY_QUESTIONS1_SMALL.json")
+    contents = open("JEOPARDY_QUESTIONS.json")
     jepData = json.load(contents)
 
     print('Jeopardy data loaded. Ready to rock!')
